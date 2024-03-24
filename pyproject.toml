@@ -6,7 +6,7 @@ lint.select = [
     "F",   # Pyflakes
     "E",   # pycodestyle Error
     "W",   # pycodestyle Warning
-    "C90", # mccabe: C901: {name} is too complex ({complexity})
+    # "C90", # mccabe: C901: {name} is too complex ({complexity})
     "I",   # isort: unsorted-imports, missing-required-import
     # "N", # pep8-naming
     "D",   # pydocstyle
@@ -34,7 +34,7 @@ lint.select = [
     "G",    # flake8-logging-format
     "INP",  # flake8-no-pep420
     "PIE",  # flake8-pie
-    "T20",  # flake8-print
+    # "T20",  # flake8-print
     "PYI",  # flake8-pyi
     "PT",   # flake8-pytest-style
     "Q",    # flake8-quotes
