@@ -2,7 +2,7 @@
 # Copyright (c) 2015, Frappe Technologies Pvt. Ltd. and contributors
 # For license information, please see license.txt
 
-from __future__ import unicode_literals
+import sys
 import locale
 
 class number2word(object):
@@ -31,7 +31,7 @@ class number2word(object):
         #array_number is type of list
             # frappe.throw(array_number)
         #convert each number(hundred) to arabic
-        for i in xrange(len(array_number)):
+        for i in range(len(array_number)):
             place=len(array_number)-i
             returnmsg=returnmsg+self.convert(array_number[i], place)
             # if (array_number[i+1]) and (array_number[i+1] > 0):
@@ -43,7 +43,7 @@ class number2word(object):
         locale.setlocale(locale.LC_ALL, '')
         x = self.number
         x= int(float(x))
-        x1 = locale.format("%d", x, grouping=True)
+        x1 = locale.format_string("%d", x, grouping=True)
         # frappe.throw(type(x).__name__)
         if (x < 0 or x > 999999999999):
             print ("العدد خارج النطاق")
@@ -137,32 +137,32 @@ class number2word(object):
                 returnmsg = returnmsg+ words[mf[str(place)]][number]
             if (place==2):
                 if (int(number) == 1):
-                    returnmsg =u' ألف'
+                    returnmsg =' ألف'
                 elif (int(number) == 2):
-                    returnmsg=u' ألفان'
+                    returnmsg=' ألفان'
                 else:
-                    returnmsg = returnmsg + words[mf[str(place)]][number]+u' آلاف'
+                    returnmsg = returnmsg + words[mf[str(place)]][number]+' آلاف'
             if (place==3):
                 if (int(number) == 1):
-                    returnmsg =returnmsg +u' مليون'
+                    returnmsg =returnmsg +' مليون'
                 elif (int(number) == 2):
-                    returnmsg=returnmsg+u' مليونان'
+                    returnmsg=returnmsg+' مليونان'
                 else:
-                    returnmsg = returnmsg + words[mf[str(place)]][number]+u' ملايين'
+                    returnmsg = returnmsg + words[mf[str(place)]][number]+' ملايين'
             if (place==4):
                 if (int(number) == 1):
-                    returnmsg =returnmsg +u' مليار'
+                    returnmsg =returnmsg +' مليار'
                 elif (int(number) == 2):
-                    returnmsg=returnmsg+u' ملياران'
+                    returnmsg=returnmsg+' ملياران'
                 else:
-                    returnmsg = returnmsg + words[mf[str(place)]][number]+u' مليارات'
+                    returnmsg = returnmsg + words[mf[str(place)]][number]+' مليارات'
 
 
         elif(number_length == 2):
             # number=number+'two'
 
             # if (words[mf[str(place)]][number]):
-            if (words[mf[str(place)]].has_key(number)):
+            if (number in words[mf[str(place)]]):
                 returnmsg = returnmsg + words[mf[str(place)]][number]
             else:
                 twoy=int(number[0]) * 10
@@ -170,11 +170,11 @@ class number2word(object):
                 returnmsg = returnmsg + words[mf[str(place)]][ony]+' و'+words[mf[str(place)]][str(twoy)]
 
             if (place==2):
-                    returnmsg =returnmsg +u' ألف'
+                    returnmsg =returnmsg +' ألف'
             if (place==3):
-                    returnmsg =returnmsg +u' مليون'
+                    returnmsg =returnmsg +' مليون'
             if (place==4):
-                    returnmsg =returnmsg +u' مليار'
+                    returnmsg =returnmsg +' مليار'
 
 
 
@@ -185,18 +185,18 @@ class number2word(object):
         elif(number_length== 3):
             # number=number+'three'
             # if (words[mf[str(place)]][number]):
-            if (words[mf[str(place)]].has_key(str(number))):
+            if (str(number) in words[mf[str(place)]]):
                 returnmsg = returnmsg+ words[mf[str(place)]][str(number)]
 
                 if (int(number) == 200):
-                    returnmsg = u' مئتا'
+                    returnmsg = ' مئتا'
 
                 if (place == 2):
-                    returnmsg = returnmsg + u' ألف'
+                    returnmsg = returnmsg + ' ألف'
                 if (place == 3):
-                    returnmsg = returnmsg + u' مليون'
+                    returnmsg = returnmsg + ' مليون'
                 if (place == 4):
-                    returnmsg = returnmsg + u' مليار'
+                    returnmsg = returnmsg + ' مليار'
 
                 return returnmsg
 
@@ -212,11 +212,11 @@ class number2word(object):
                     if (place == 1):
                         twoyony = words[mf[str(place)]]['2']
                     if (place == 2):
-                        twoyony = u' ألفان'
+                        twoyony = ' ألفان'
                     if (place == 3):
-                        twoyony = u' مليونان'
+                        twoyony = ' مليونان'
                     if (place == 4):
-                        twoyony = u' ملياران'
+                        twoyony = ' ملياران'
 
                     if (int(threey) != 0):
                         twoyony='و'+str(twoyony)
@@ -228,11 +228,11 @@ class number2word(object):
                     if (place == 1):
                         twoyony = words[mf[str(place)]]['1']
                     if (place == 2):
-                        twoyony = u'ألف'
+                        twoyony = 'ألف'
                     if (place == 3):
-                        twoyony = u'مليون'
+                        twoyony = 'مليون'
                     if (place == 4):
-                        twoyony = u'مليار'
+                        twoyony = 'مليار'
 
                     if (int(threey) != 0):
                         twoyony='و'+str(twoyony)
@@ -245,7 +245,7 @@ class number2word(object):
                 else:
                     # if ((words[mf[str(place)]][twoyony])):
                     twoyony=str(twoyony)
-                    if (words[mf[str(place)]].has_key(twoyony)):
+                    if (twoyony in words[mf[str(place)]]):
                     # if words.has_key(twoyony):
                         twoyony = words[mf[str(place)]][twoyony]
                     else:
@@ -260,11 +260,11 @@ class number2word(object):
 
 
                     if (place == 2):
-                        returnmsg =returnmsg+ u' ألف'
+                        returnmsg =returnmsg+ ' ألف'
                     if (place == 3):
-                        returnmsg = returnmsg+ u' مليون'
+                        returnmsg = returnmsg+ ' مليون'
                     if (place == 4):
-                        returnmsg =returnmsg+ u' مليار'
+                        returnmsg =returnmsg+ ' مليار'
 
 
         return returnmsg
@@ -272,7 +272,7 @@ class number2word(object):
 
 
 
-
-number=11231233
-numb=number2word(number)
-numb.validate()
+for arg in sys.argv[1:]:
+    number = int(arg)
+    numb = number2word(number)
+    numb.validate()
